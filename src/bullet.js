@@ -41,6 +41,8 @@ let Bullet = function () {
         }
         if (game.over) {
             this.ready = false;
+            // musicBackground.stop();
+            // soundGameOver.play();
             cancelAnimationFrame(callAgainBulletMove);
         }
         callAgainBulletMove = requestAnimationFrame(self.move)

@@ -67,6 +67,8 @@ function newGame() {
     document.getElementById('scores').innerHTML = scores;
     //khởi tạo các chướng ngại vật
     //game bắt đầu
+    musicBackground=new Sound('./sounds/Two Steps From Hell - Victory (mp3cut.net).mp3');
+    musicBackground.play();
     game.start();
 }
 function introGame(time) {
@@ -89,6 +91,8 @@ function outroGame() {
 }
 
 let game = new Game();
+var musicBackground;
+let soundGameOver=new Sound('./sounds/gameOver3.mp3');
 let obstacles = [];
 let scores = 0;
 let callAgainBulletMove;

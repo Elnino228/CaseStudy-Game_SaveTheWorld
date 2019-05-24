@@ -27,7 +27,7 @@ let Obstacles = function () {
         let y = this.y;
         let width = this.width;
         let height = this.height;
-        ctxGame.shadowColor=BLUR_COLOR  //getRandomColor();
+        ctxGame.shadowColor=getRandomColor();
         ctxGame.shadowBlur=BLUR_LEVEL;
         ctxGame.drawImage(self.img, x, y, width, height);
     }
