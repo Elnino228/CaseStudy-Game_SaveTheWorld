@@ -3,8 +3,10 @@ const MEDIUM_SPEED = 2;
 const HARD_SPEED = 4;
 const INCREASE_SPEED = 2;
 const NUMBERS_OBSTACLES = 10;
-const OBSTACLES_SIZE = 50;
+const OBSTACLES_SIZE = 70;
 const OBSTACLES_RATIO=0.4;
+const BLUR_LEVEL=20;
+const BLUR_COLOR='aqua';
 //khai báo lớp Chướng ngại vật
 let Obstacles = function () {
     let self=this;
@@ -25,8 +27,8 @@ let Obstacles = function () {
         let y = this.y;
         let width = this.width;
         let height = this.height;
-        ctxGame.shadowColor='white'  //getRandomColor();
-        ctxGame.shadowBlur=10;
+        ctxGame.shadowColor=BLUR_COLOR  //getRandomColor();
+        ctxGame.shadowBlur=BLUR_LEVEL;
         ctxGame.drawImage(self.img, x, y, width, height);
     }
     this.setSpeed = function () {
@@ -43,6 +45,22 @@ let Obstacles = function () {
     }
     this.move = function () {
         this.y += this.speed;
+    }
+    this.shoot = function () {
+        let obstacleAppear=this.y+this.height>=0
+        if (obstacleAppear){
+            let bullet = new Bullet();
+            let name='bulletOfObstacle';
+            let link="./images/bullet5.png"
+            let size=30;
+            let speed=4;
+            let damage=1;
+            bullet.setType(name,link,size,speed,damage);
+            this.bullet = bullet;
+            this.bullet.x = this.x + this.width / 2-this.bullet.width/2;
+            this.bullet.y = this.y+this.height/2;
+            this.bullet.move();
+        }
     }
     this.isDestroyed=function (index) {
         //xóa obstacle khi hết máu (hp=0) bằng cách remove phần tử đó (dựa vào index truyền vào) trong mảng Obstacles

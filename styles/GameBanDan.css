@@ -16,6 +16,7 @@
     position: absolute;
     top: 10px;
     left: 200px;
+    font-family: 'Bungee Inline', cursive;
 }
 #scores{
     color: red;

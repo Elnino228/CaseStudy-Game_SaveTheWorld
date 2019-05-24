@@ -1,34 +1,39 @@
-const NUMBERS_UFO_IMAGES=10;
+const NUMBERS_UFO_IMAGES = 10;
 //khai báo lớp Game
 let Game = function () {
     let self = this;
+    this.over = false;
+    this.ready = true;
     this.player = new Player();
-    this.bullet=new Bullet();
+    this.bullet = new Bullet();
     //khởi tạo nhiều chướng ngại vật và lưu vào mảng đc khai báo Global
     this.createMultipleObstacles = function () {
         for (let i = 0; i < NUMBERS_OBSTACLES; i++) {
             this.obstacle = new Obstacles();
-            let color=getRandomColor();
-            this.obstacle.setType('./images/ufo'+Math.floor(Math.random()*NUMBERS_UFO_IMAGES)+'.png')
+            let color = getRandomColor();
+            this.obstacle.setType('./images/ufo' + Math.floor(Math.random() * NUMBERS_UFO_IMAGES) + '.png')
 
             this.obstacle.setSpeed();
             obstacles.push(this.obstacle);
         }
         this.obstacles = obstacles;
     };
-    this.drawMultipleObstacles=function () {
-        for (let i=0;i<self.obstacles.length;i++){
+    this.drawMultipleObstacles = function () {
+        for (let i = 0; i < self.obstacles.length; i++) {
             self.obstacles[i].draw();
         }
     }
     this.start = function () {
-        if (self.end()) {
-            outroGame('Game Over');
+        if (self.over) {
+            cancelAnimationFrame(callAgainBulletMove);
+            outroGame();
+            this.ready = false;
             return; //nếu game over thì thoát
         }
-        callAgainGameStart=requestAnimationFrame(self.start);
+        callAgainGameStart = requestAnimationFrame(self.start);
         ctxGame.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
         ctxBullet.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
+        // updateHP(self.player.hp);
         self.player.move();
         self.player.show();
         // self.bullet.move();
@@ -39,8 +44,10 @@ let Game = function () {
                 self.obstacles[i].y = Math.floor(Math.random() * (-CV_HEIGHT));
             }
             self.obstacles[i].draw();
+            // self.obstacles[i].shoot();
         }
-        self.recordScores()
+        self.record()
+        self.end();
     };
     this.end = function () {
         for (let i = 0; i < self.obstacles.length; i++) {
@@ -49,18 +56,25 @@ let Game = function () {
                 this.player.y <= this.obstacles[i].y + this.obstacles[i].height;
             let wallTouchObstacle = this.obstacles[i].y + this.obstacles[i].height >= CV_HEIGHT;
             if (playerTouchObstacle || wallTouchObstacle) {
-
-                return true;
+                this.over = true;
             }
         }
     }
-    this.recordScores=function () {
-        document.getElementById('scores').innerHTML=scores;
+    this.record = function () {
+        document.getElementById('scores').innerHTML = scores;
+        ctxIntro.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
+        ctxIntro.textAlign = "center";
+        ctxIntro.font = "bold 15px SFUAGBuchStencilBQMedium";
+        ctxIntro.fillStyle = 'red';
+        ctxIntro.fillText('SCORES: ' + scores, 100, 20);
+        ctxIntro.font = "bold 15px SFUAGBuchStencilBQMedium";
+        ctxIntro.fillStyle = 'red';
+        ctxIntro.fillText('HP: ' + self.player.hp, 30, 20);
     }
-    this.x=0;
-    this.y=0;
-    this.background=function (top,left,size) {
-        
+    this.x = 0;
+    this.y = 0;
+    this.background = function (top, left, size) {
+
     }
     // this.animate = function () {
     //     this.top = top;

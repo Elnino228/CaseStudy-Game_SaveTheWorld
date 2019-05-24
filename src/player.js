@@ -3,22 +3,31 @@ const ORIENTATION_DOWN = 'down';
 const ORIENTATION_LEFT = 'left';
 const ORIENTATION_RIGHT = 'right';
 const DEFAULT_ORIENTATION = ORIENTATION_UP;
-const PLAYER_RATIO=0.3;
+const PLAYER_RATIO = 0.2;
 const CV_WIDTH = myCanvas.width;
 const CV_HEIGHT = myCanvas.height;
-const DEFAULT_POSISION_Y=CV_HEIGHT-100;
-const DEFAULT_POSISION_X=CV_WIDTH / 2;
-const DEFAULT_SPEED = 1;
+const DEFAULT_POSISION_Y = CV_HEIGHT - 100;
+const DEFAULT_POSISION_X = CV_WIDTH / 2;
+const DEFAULT_SPEED = 2;
+const PLAYER_HP=3;
+const CTRL_KEY = 17;
+const SPACE_KEY = 32;
+const LEFT_ARROW_KEY = 37;
+const UP_ARROW_KEY = 38;
+const RIGHT_ARROW_KEY = 39;
+const DOWN_ARROW_KEY = 40;
+const ENTER_KEY = 13;
 
 let Player = function () {
     //để tránh nhầm lẫn trong việc thực thi từ 'this' trong function, ta đặt self=this ở ngay đầu khai báo lớp để dùng trong function
     let self = this;
     this.x = DEFAULT_POSISION_X;
     this.y = DEFAULT_POSISION_Y;
-    this.image=new Image();
-    this.image.src='./images/combat_Aircrafts.png';
-    this.width = this.image.naturalWidth*PLAYER_RATIO;
-    this.height = this.image.naturalHeight*PLAYER_RATIO;
+    this.hp=PLAYER_HP;
+    this.image = new Image();
+    this.image.src = './images/combat_Aircrafts.png';
+    this.width = this.image.naturalWidth * PLAYER_RATIO;
+    this.height = this.image.naturalHeight * PLAYER_RATIO;
     this.speed = DEFAULT_SPEED;
     this.orientation = DEFAULT_ORIENTATION;
     this.show = function () {
@@ -31,16 +40,25 @@ let Player = function () {
     };
     //cho phương thức này khai báo ở thẻ body với sự kiện onkeydown
     this.changeOrientation = function (event) {
-        switch (event.keyCode) {
-            case LEFT_ARROW_KEY:
-                this.orientation = ORIENTATION_LEFT;
-                break;
-            case RIGHT_ARROW_KEY:
-                this.orientation = ORIENTATION_RIGHT;
-                break;
-            case CTRL_KEY:
-                this.shoot();
-                break;
+        console.log(event.keyCode);
+        if (game.ready) {
+            switch (event.keyCode) {
+                case LEFT_ARROW_KEY:
+                    this.orientation = ORIENTATION_LEFT;
+                    break;
+                case RIGHT_ARROW_KEY:
+                    this.orientation = ORIENTATION_RIGHT;
+                    break;
+                case CTRL_KEY:
+                    this.shoot();
+                    for (let i = 0; i < obstacles.length; i++) {
+                        game.obstacles[i].shoot();
+                    }
+                    break;
+                case ENTER_KEY:
+                    playReset();
+                    playReady();
+            }
         }
     };
     this.move = function () {
@@ -61,9 +79,14 @@ let Player = function () {
     };
     this.shoot = function () {
         let bullet = new Bullet();
-        bullet.setType("./images/rocket2.png");
+        let name = 'bulletOfPlayer';
+        let link = "./images/rocket2.png";
+        let size = 30;
+        let speed = -8;
+        let damage = 1;
+        bullet.setType(name, link, size, speed, damage);
         this.bullet = bullet;
-        this.bullet.x = this.x + this.width / 2-this.bullet.width/2;
+        this.bullet.x = this.x + this.width / 2 - this.bullet.width / 2;
         this.bullet.y = this.y;
         this.bullet.move();
 

@@ -5,12 +5,6 @@ let cvBullet = document.getElementById('myCanvas2');
 let ctxBullet = cvBullet.getContext('2d');
 let cvIntro = document.getElementById('myCanvas3');
 let ctxIntro = cvIntro.getContext('2d');
-const CTRL_KEY = 17;
-const SPACE_KEY = 32;
-const LEFT_ARROW_KEY = 37;
-const UP_ARROW_KEY = 38;
-const RIGHT_ARROW_KEY = 39;
-const DOWN_ARROW_KEY = 40;
 const DELAY_TIME = 0;
 
 //hàm để chọn ngẫu nhiên các số từ 0 đến 255
@@ -37,7 +31,10 @@ function countDown(time) {
             countDown(time - 1)
         }, 1000);
     } else {
-        ctxIntro.clearRect(0,0,CV_WIDTH,CV_HEIGHT);
+        cvGame.style.webkitFilter = "blur(0px)";
+        ctxGame.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
+        ctxIntro.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
+        ctxBullet.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
         newGame()
     }
 }
@@ -76,17 +73,19 @@ function introGame(time) {
     cvGame.style.webkitFilter = "blur(0px)";
     ctxIntro.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
     ctxIntro.textAlign = "center";
-    ctxIntro.font = "150px Comic Sans MS";
+    ctxIntro.font = "bold 140px SFUAGBuchStencilBQMedium";
     ctxIntro.fillStyle = 'green';
     ctxIntro.fillText(time, CV_WIDTH / 2, CV_HEIGHT / 2);
 }
-function outroGame(text1) {
+function outroGame() {
     cvGame.style.webkitFilter = "blur(2px)";
     ctxIntro.textAlign = "center";
-    ctxIntro.font = "bold 40px Comic Sans MS";
-    ctxIntro.fillStyle = 'green';
-    ctxIntro.fillText(text1, CV_WIDTH / 2, CV_HEIGHT / 2);
-    // ctxIntro.fillText(text2, CV_WIDTH / 2, CV_HEIGHT / 2);
+    ctxIntro.font = "bold 80px SFUAGBuchStencilBQMedium";
+    ctxIntro.fillStyle = 'yellow';
+    ctxIntro.fillText("Game Over", CV_WIDTH / 2, CV_HEIGHT / 2);
+    ctxIntro.font = "30px SFUAGBuchStencilBQMedium";
+    ctxIntro.fillStyle = 'red';
+    ctxIntro.fillText('Press Enter to continute...', CV_WIDTH / 2, CV_HEIGHT / 1.7);
 }
 
 let game = new Game();
@@ -99,7 +98,9 @@ let callAgainGameStart;
 //         return;
 //     } else {
 //         if (e.keyCode == CTRL_KEY) {
-//             game.player.shoot();
+//             for (let i=0;i<obstacles.length;i++){
+//                 game.obstacles[i].shoot();
+//             }
 //         }
 //     }
 // });
