@@ -9,7 +9,7 @@ let Game = function () {
         for (let i = 0; i < NUMBERS_OBSTACLES; i++) {
             this.obstacle = new Obstacles();
             let color=getRandomColor();
-            this.obstacle.setType('./images/ufo1.png')
+            this.obstacle.setType('./images/ufo'+Math.floor(Math.random()*NUMBERS_UFO_IMAGES)+'.png')
 
             this.obstacle.setSpeed();
             obstacles.push(this.obstacle);
@@ -23,6 +23,7 @@ let Game = function () {
     }
     this.start = function () {
         if (self.end()) {
+            outroGame('Game Over');
             return; //nếu game over thì thoát
         }
         callAgainGameStart=requestAnimationFrame(self.start);
@@ -43,10 +44,10 @@ let Game = function () {
     };
     this.end = function () {
         for (let i = 0; i < self.obstacles.length; i++) {
-            let playerTouchObstacle = this.player.x + this.player.sizeWidth >= this.obstacles[i].x &&
-                this.player.x <= this.obstacles[i].x + this.obstacles[i].size &&
-                this.player.y <= this.obstacles[i].y + this.obstacles[i].size;
-            let wallTouchObstacle = this.obstacles[i].y + this.obstacles[i].size >= CV_HEIGHT;
+            let playerTouchObstacle = this.player.x + this.player.width >= this.obstacles[i].x &&
+                this.player.x <= this.obstacles[i].x + this.obstacles[i].width &&
+                this.player.y <= this.obstacles[i].y + this.obstacles[i].height;
+            let wallTouchObstacle = this.obstacles[i].y + this.obstacles[i].height >= CV_HEIGHT;
             if (playerTouchObstacle || wallTouchObstacle) {
 
                 return true;

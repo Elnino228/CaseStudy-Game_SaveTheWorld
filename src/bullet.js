@@ -10,20 +10,18 @@ let Bullet = function () {
     this.y;
     this.img=new Image();
     this.setType = function (name) {
-        this.name = name;
+        this.img.src=name
+        this.width=this.img.naturalWidth*BULLET_RATIO;
+        this.height=this.img.naturalHeight*BULLET_RATIO;
+        l(self.img.width)
         this.speed = 4;
         this.damage = 1;
     }
     this.draw = function () {
-        this.img.src=this.name;
-        this.width=this.img.naturalWidth*BULLET_RATIO;
-        this.height=this.img.clientWidth*BULLET_RATIO;
-        l(self.img.width)
         let x = this.x;
         let y = this.y;
         let width = this.width;
         let height = this.height;
-        ctxBullet.save();
         ctxBullet.drawImage(self.img, x, y, width, height);
     }
     this.move = function () {
@@ -37,7 +35,7 @@ let Bullet = function () {
         // setTimeout(self.move, DELAY_TIME);
     }
     this.destroy = function () {
-        let bulletTouchTopWall = this.y + this.size <= 0;
+        let bulletTouchTopWall = this.y <= 0;
         //khi đạn chạm vào cạnh trên Canvas thì xóa đạn
         if (bulletTouchTopWall) {
             ctxBullet.clearRect(self.x, self.y, self.width , self.height );

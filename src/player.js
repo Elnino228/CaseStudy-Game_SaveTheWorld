@@ -8,6 +8,7 @@ const CV_WIDTH = myCanvas.width;
 const CV_HEIGHT = myCanvas.height;
 const DEFAULT_POSISION_Y=CV_HEIGHT-100;
 const DEFAULT_POSISION_X=CV_WIDTH / 2;
+const DEFAULT_SPEED = 1;
 
 let Player = function () {
     //để tránh nhầm lẫn trong việc thực thi từ 'this' trong function, ta đặt self=this ở ngay đầu khai báo lớp để dùng trong function
@@ -60,7 +61,7 @@ let Player = function () {
     };
     this.shoot = function () {
         let bullet = new Bullet();
-        bullet.setType('./images/rocket2.png')
+        bullet.setType("./images/rocket2.png");
         this.bullet = bullet;
         this.bullet.x = this.x + this.width / 2-this.bullet.width/2;
         this.bullet.y = this.y;

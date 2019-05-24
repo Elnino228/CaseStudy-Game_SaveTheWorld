@@ -1,11 +1,10 @@
 const EASY_SPEED = 0.5;
 const MEDIUM_SPEED = 2;
 const HARD_SPEED = 4;
-const DEFAULT_SPEED = 1;
 const INCREASE_SPEED = 2;
 const NUMBERS_OBSTACLES = 10;
-const OBSTACLES_SIZE = 30;
-const OBSTACLES_RATIO=0.5
+const OBSTACLES_SIZE = 50;
+const OBSTACLES_RATIO=0.4;
 //khai báo lớp Chướng ngại vật
 let Obstacles = function () {
     let self=this;
@@ -14,8 +13,10 @@ let Obstacles = function () {
     this.img=new Image();
     this.setType=function (name) {
         this.img.src=name;
-        this.width=this.img.naturalWidth*BULLET_RATIO;
-        this.height=this.img.naturalHeight*BULLET_RATIO;;
+        // this.width=this.img.naturalWidth*OBSTACLES_RATIO;
+        // this.height=this.img.naturalHeight*OBSTACLES_RATIO;
+        this.width=OBSTACLES_SIZE;
+        this.height=OBSTACLES_SIZE;
         this.hp=1;
 
     }
@@ -48,11 +49,11 @@ let Obstacles = function () {
         //sau đó sinh lại 1 obstacle bù lại vào mảng
         if (obstacles[index].hp==0) {
             let removeItem = obstacles.splice(index, 1);
-            // let obstacle = new Obstacles();
-            // let color=getRandomColor();
-            // obstacle.setType('a',OBSTACLES_SIZE,color,1)
-            // obstacle.setSpeed();
-            // obstacles.push(obstacle);
+            let obstacle = new Obstacles();
+            let color=getRandomColor();
+            obstacle.setType('./images/ufo'+Math.floor(Math.random()*NUMBERS_UFO_IMAGES)+'.png')
+            obstacle.setSpeed();
+            obstacles.push(obstacle);
             scores++;
             // document.getElementById('scores').innerHTML=scores;
         }

@@ -80,13 +80,13 @@ function introGame(time) {
     ctxIntro.fillStyle = 'green';
     ctxIntro.fillText(time, CV_WIDTH / 2, CV_HEIGHT / 2);
 }
-function outroGame(text1, text2) {
+function outroGame(text1) {
     cvGame.style.webkitFilter = "blur(2px)";
     ctxIntro.textAlign = "center";
     ctxIntro.font = "bold 40px Comic Sans MS";
     ctxIntro.fillStyle = 'green';
     ctxIntro.fillText(text1, CV_WIDTH / 2, CV_HEIGHT / 2);
-    ctxIntro.fillText(text2, CV_WIDTH / 2, CV_HEIGHT / 2);
+    // ctxIntro.fillText(text2, CV_WIDTH / 2, CV_HEIGHT / 2);
 }
 
 let game = new Game();
