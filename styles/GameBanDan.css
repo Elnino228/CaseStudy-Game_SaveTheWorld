@@ -1,0 +1,38 @@
+
+#myCanvas{
+    position: absolute;
+    top: 10px;
+    left: 200px;
+    background: url("https://spacenews.com/wp-content/uploads/2018/05/24359364107_152b0152ff_k-879x485.jpg");
+    background-size: cover;
+}
+#myCanvas2{
+    position: absolute;
+    top: 10px;
+    left: 200px;
+    color: aqua;
+}
+#myCanvas3{
+    position: absolute;
+    top: 10px;
+    left: 200px;
+}
+#scores{
+    color: red;
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 50px;
+    position: relative;
+    top: -40px;
+    left: 30px;
+}
+#scoresBoard{
+    display: inline-block;
+    position: relative;
+    width: 95px;
+    height: 100px;
+
+}
+#game{
+    display: inline-block;
+}
