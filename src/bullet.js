@@ -76,9 +76,13 @@ let Bullet = function () {
             if (bulletTouchBottomWall) {
                 return true;
             }
-            bulletTouchPlayer = this.x + this.width >= game.player.x &&
-                this.x <= game.player.x + game.player.width &&
-                this.y + this.height >= game.player.y;
+            // bulletTouchPlayer = this.x + this.width >= game.player.x &&
+            //     this.x <= game.player.x + game.player.width &&
+            //     this.y + this.height >= game.player.y;
+            //sửa lại cho khó chết hơn
+            bulletTouchPlayer = this.x + this.width >= game.player.x+game.player.width/4 &&
+                this.x <= game.player.x + game.player.width*0.75 &&
+                this.y + this.height >= game.player.y+game.player.height/4;
             if (bulletTouchPlayer) {
                 if (game.player.hp>0) game.player.hp--;
                 if (game.player.hp==0){

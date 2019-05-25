@@ -52,9 +52,13 @@ let Game = function () {
     };
     this.end = function () {
         for (let i = 0; i < self.obstacles.length; i++) {
-            let playerTouchObstacle = this.player.x + this.player.width >= this.obstacles[i].x &&
-                this.player.x <= this.obstacles[i].x + this.obstacles[i].width &&
-                this.player.y <= this.obstacles[i].y + this.obstacles[i].height;
+            // let playerTouchObstacle = this.player.x + this.player.width >= this.obstacles[i].x &&
+            //     this.player.x <= this.obstacles[i].x + this.obstacles[i].width &&
+            //     this.player.y <= this.obstacles[i].y + this.obstacles[i].height;
+            //sửa lại cho khó chết hơn
+            let playerTouchObstacle = this.player.x + this.player.width/2 >= this.obstacles[i].x &&
+                this.player.x+this.player.width/2 <= this.obstacles[i].x + this.obstacles[i].width &&
+                this.player.y+this.player.height/2 <= this.obstacles[i].y + this.obstacles[i].height;
             let wallTouchObstacle = this.obstacles[i].y + this.obstacles[i].height >= CV_HEIGHT;
             if (playerTouchObstacle || wallTouchObstacle) {
                 this.over = true;

@@ -89,7 +89,7 @@ function outroGame() {
     ctxIntro.fillText("Game Over", CV_WIDTH / 2, CV_HEIGHT / 2);
     ctxIntro.font = "20px Impact";
     ctxIntro.fillStyle = 'red';
-    ctxIntro.fillText('Press Enter to continute...', CV_WIDTH / 2, CV_HEIGHT / 1.7);
+    ctxIntro.fillText('Press Enter to continute...', CV_WIDTH / 2, CV_HEIGHT / 1.4);
 }
 
 let game = new Game();
@@ -101,6 +101,16 @@ let obstacles = [];
 let scores = 0;
 let callAgainBulletMove;
 let callAgainGameStart;
+ctxIntro.textAlign = "center";
+ctxIntro.font = " 30px Arial ";
+ctxIntro.fillStyle = 'wheat';
+ctxIntro.fillText("GAME", CV_WIDTH / 2, CV_HEIGHT / 3);
+ctxIntro.font = " bold 80px Impact ";
+ctxIntro.fillStyle = 'yellow';
+ctxIntro.fillText("SAVE THE WORLD", CV_WIDTH / 2, CV_HEIGHT / 2);
+ctxIntro.font = " bold 20px Arial ";
+ctxIntro.fillStyle = 'red';
+ctxIntro.fillText("PRESS ENTER TO PLAY", CV_WIDTH / 2, CV_HEIGHT / 1.4);
 // window.addEventListener('keydown', function (e) {
 //     if (game.end()) {
 //         return;
