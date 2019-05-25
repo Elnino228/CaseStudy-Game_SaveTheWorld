@@ -81,8 +81,11 @@ let Bullet = function () {
                 this.y + this.height >= game.player.y;
             if (bulletTouchPlayer) {
                 if (game.player.hp>0) game.player.hp--;
-                l(game.player.hp)
-                if (game.player.hp==0) game.over = true;
+                if (game.player.hp==0){
+                    game.over = true;
+                    game.ready=false;
+                }
+
                 return true;
             }
         }

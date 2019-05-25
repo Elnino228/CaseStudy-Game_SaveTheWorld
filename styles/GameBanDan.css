@@ -2,21 +2,28 @@
 #myCanvas{
     position: absolute;
     top: 10px;
-    left: 200px;
-    background: url("https://spacenews.com/wp-content/uploads/2018/05/24359364107_152b0152ff_k-879x485.jpg");
+    left: 300px;
+    background-image: url("background6.jpg");
     background-size: cover;
 }
 #myCanvas2{
     position: absolute;
     top: 10px;
-    left: 200px;
+    left: 300px;
     color: aqua;
 }
 #myCanvas3{
     position: absolute;
     top: 10px;
-    left: 200px;
-    font-family: 'Bungee Inline', cursive;
+    left: 300px;
+    /*font-family: .Vn3DH;*/
+    /*font-size: large;*/
+    /*font-family: 'Press Start 2P', cursive;*/
+}
+#myCanvas4{
+    position: absolute;
+    top: 10px;
+    left: 300px;
 }
 #scores{
     color: red;

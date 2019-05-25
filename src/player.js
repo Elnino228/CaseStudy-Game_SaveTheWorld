@@ -3,13 +3,13 @@ const ORIENTATION_DOWN = 'down';
 const ORIENTATION_LEFT = 'left';
 const ORIENTATION_RIGHT = 'right';
 const DEFAULT_ORIENTATION = ORIENTATION_UP;
-const PLAYER_RATIO = 0.2;
+const PLAYER_RATIO = 0.25;
 const CV_WIDTH = myCanvas.width;
 const CV_HEIGHT = myCanvas.height;
 const DEFAULT_POSISION_Y = CV_HEIGHT - 100;
 const DEFAULT_POSISION_X = CV_WIDTH / 2;
 const DEFAULT_SPEED = 2;
-const PLAYER_HP=3;
+const PLAYER_HP=10;
 const CTRL_KEY = 17;
 const SPACE_KEY = 32;
 const LEFT_ARROW_KEY = 37;
@@ -40,7 +40,6 @@ let Player = function () {
     };
     //cho phương thức này khai báo ở thẻ body với sự kiện onkeydown
     this.changeOrientation = function (event) {
-        console.log(event.keyCode);
         if (game.ready) {
             switch (event.keyCode) {
                 case LEFT_ARROW_KEY:
@@ -50,15 +49,17 @@ let Player = function () {
                     this.orientation = ORIENTATION_RIGHT;
                     break;
                 case CTRL_KEY:
+                    l(game.ready);
                     this.shoot();
                     for (let i = 0; i < obstacles.length; i++) {
                         game.obstacles[i].shoot();
                     }
                     break;
-                case ENTER_KEY:
-                    playReset();
-                    playReady();
             }
+        }
+        if (event.keyCode==ENTER_KEY){
+            playReset();
+            playReady();
         }
     };
     this.move = function () {
@@ -88,6 +89,8 @@ let Player = function () {
         this.bullet = bullet;
         this.bullet.x = this.x + this.width / 2 - this.bullet.width / 2;
         this.bullet.y = this.y;
+        soundShoot.play();
+        // soundShoot.stop();
         this.bullet.move();
 
     }

@@ -1,11 +1,11 @@
-const EASY_SPEED = 0.5;
-const MEDIUM_SPEED = 2;
-const HARD_SPEED = 4;
+const EASY_SPEED = 0.4;
+const MEDIUM_SPEED = 0.6;
+const HARD_SPEED = 1;
 const INCREASE_SPEED = 2;
 const NUMBERS_OBSTACLES = 10;
 const OBSTACLES_SIZE = 70;
 const OBSTACLES_RATIO=0.4;
-const BLUR_LEVEL=20;
+const BLUR_LEVEL=30;
 const BLUR_COLOR='aqua';
 //khai báo lớp Chướng ngại vật
 let Obstacles = function () {
@@ -32,16 +32,17 @@ let Obstacles = function () {
         ctxGame.drawImage(self.img, x, y, width, height);
     }
     this.setSpeed = function () {
-        let easy = document.getElementById('easy').checked;
-        let medium = document.getElementById('medium').checked;
-        let hard = document.getElementById('hard').checked;
-        if (easy) {
-            this.speed = EASY_SPEED;
-        } else if (medium) {
-            this.speed = MEDIUM_SPEED;
-        } else {
-            this.speed = HARD_SPEED;
-        }
+        this.speed=EASY_SPEED;
+        // let easy = document.getElementById('easy').checked;
+        // let medium = document.getElementById('medium').checked;
+        // let hard = document.getElementById('hard').checked;
+        // if (easy) {
+        //     this.speed = EASY_SPEED;
+        // } else if (medium) {
+        //     this.speed = MEDIUM_SPEED;
+        // } else {
+        //     this.speed = HARD_SPEED;
+        // }
     }
     this.move = function () {
         this.y += this.speed;
@@ -62,10 +63,17 @@ let Obstacles = function () {
             this.bullet.move();
         }
     }
+    this.explosive=new Explosion();
     this.isDestroyed=function (index) {
         //xóa obstacle khi hết máu (hp=0) bằng cách remove phần tử đó (dựa vào index truyền vào) trong mảng Obstacles
         //sau đó sinh lại 1 obstacle bù lại vào mảng
         if (obstacles[index].hp==0) {
+            let posX=obstacles[index].x+obstacles[index].width/2-obstacles[index].explosive.size/2;
+            let posY=obstacles[index].y+obstacles[index].height/2-obstacles[index].explosive.size/2;
+            self.explosive.setPosition(posX,posY);
+            soundExplosive.play();
+            // soundExplosive.stop();
+            obstacles[index].explosive.start();
             let removeItem = obstacles.splice(index, 1);
             let obstacle = new Obstacles();
             let color=getRandomColor();

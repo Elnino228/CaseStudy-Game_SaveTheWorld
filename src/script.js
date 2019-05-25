@@ -5,6 +5,8 @@ let cvBullet = document.getElementById('myCanvas2');
 let ctxBullet = cvBullet.getContext('2d');
 let cvIntro = document.getElementById('myCanvas3');
 let ctxIntro = cvIntro.getContext('2d');
+let cvExplosive = document.getElementById('myCanvas4');
+let ctxExplosive = cvExplosive.getContext('2d');
 const DELAY_TIME = 0;
 
 //hàm để chọn ngẫu nhiên các số từ 0 đến 255
@@ -47,7 +49,7 @@ function playReset() {
     game = new Game();
     obstacles = [];
     scores = 0;
-    document.getElementById('scores').innerHTML = scores;
+    // document.getElementById('scores').innerHTML = scores;
     // window.clearTimeout(game.timeOut_Start);
     // window.cancelAnimationFrame(callAgainGameStart)
 }
@@ -64,10 +66,10 @@ function newGame() {
     //hiển thị chướng ngại vật
     game.drawMultipleObstacles();
     scores = 0;
-    document.getElementById('scores').innerHTML = scores;
+    // document.getElementById('scores').innerHTML = scores;
     //khởi tạo các chướng ngại vật
     //game bắt đầu
-    musicBackground=new Sound('./sounds/Two Steps From Hell - Victory (mp3cut.net).mp3');
+    musicBackground=new Sound('./sounds/background4.m4a');
     musicBackground.play();
     game.start();
 }
@@ -75,24 +77,26 @@ function introGame(time) {
     cvGame.style.webkitFilter = "blur(0px)";
     ctxIntro.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
     ctxIntro.textAlign = "center";
-    ctxIntro.font = "bold 140px SFUAGBuchStencilBQMedium";
-    ctxIntro.fillStyle = 'green';
+    ctxIntro.font = "bold 140px Impact ";
+    ctxIntro.fillStyle = 'yellow';
     ctxIntro.fillText(time, CV_WIDTH / 2, CV_HEIGHT / 2);
 }
 function outroGame() {
     cvGame.style.webkitFilter = "blur(2px)";
     ctxIntro.textAlign = "center";
-    ctxIntro.font = "bold 80px SFUAGBuchStencilBQMedium";
+    ctxIntro.font = "bold 80px Impact ";
     ctxIntro.fillStyle = 'yellow';
     ctxIntro.fillText("Game Over", CV_WIDTH / 2, CV_HEIGHT / 2);
-    ctxIntro.font = "30px SFUAGBuchStencilBQMedium";
+    ctxIntro.font = "20px Impact";
     ctxIntro.fillStyle = 'red';
     ctxIntro.fillText('Press Enter to continute...', CV_WIDTH / 2, CV_HEIGHT / 1.7);
 }
 
 let game = new Game();
-var musicBackground;
+let musicBackground;
 let soundGameOver=new Sound('./sounds/gameOver3.mp3');
+let soundShoot=new Sound('./sounds/chiu.mp3');
+let soundExplosive=new Sound('./sounds/Explosion+1.mp3');
 let obstacles = [];
 let scores = 0;
 let callAgainBulletMove;

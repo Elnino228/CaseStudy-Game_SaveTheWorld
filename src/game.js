@@ -29,7 +29,6 @@ let Game = function () {
             soundGameOver.play();
             cancelAnimationFrame(callAgainBulletMove);
             outroGame();
-            this.ready = false;
             return; //nếu game over thì thoát
         }
         callAgainGameStart = requestAnimationFrame(self.start);
@@ -59,19 +58,20 @@ let Game = function () {
             let wallTouchObstacle = this.obstacles[i].y + this.obstacles[i].height >= CV_HEIGHT;
             if (playerTouchObstacle || wallTouchObstacle) {
                 this.over = true;
+                this.ready = false;
             }
         }
     }
     this.record = function () {
-        document.getElementById('scores').innerHTML = scores;
-        ctxIntro.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
-        ctxIntro.textAlign = "center";
-        ctxIntro.font = "bold 15px SFUAGBuchStencilBQMedium";
-        ctxIntro.fillStyle = 'red';
-        ctxIntro.fillText('SCORES: ' + scores, 100, 20);
-        ctxIntro.font = "bold 15px SFUAGBuchStencilBQMedium";
-        ctxIntro.fillStyle = 'red';
-        ctxIntro.fillText('HP: ' + self.player.hp, 30, 20);
+        // document.getElementById('scores').innerHTML = scores;
+        // ctxIntro.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
+        ctxGame.textAlign = "center";
+        ctxGame.font = "30px Impact";
+        ctxGame.fillStyle = 'white';
+        ctxGame.fillText('SCORES: ' + scores, 170, 30);
+        ctxGame.font = "30px Impact";
+        ctxGame.fillStyle = 'red';
+        ctxGame.fillText('HP: ' + self.player.hp, 50, 30);
     }
     this.x = 0;
     this.y = 0;
