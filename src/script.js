@@ -71,6 +71,11 @@ function newGame() {
     //game bắt đầu
     musicBackground=new Sound('./sounds/background4.m4a');
     musicBackground.play();
+    callBackMusicBackground=setInterval(function(){
+        musicBackground.stop();
+        musicBackground=new Sound('./sounds/background4.m4a');
+        musicBackground.play();
+    } ,132000);
     game.start();
 }
 function introGame(time) {
@@ -101,6 +106,7 @@ let obstacles = [];
 let scores = 0;
 let callAgainBulletMove;
 let callAgainGameStart;
+let callBackMusicBackground;
 ctxIntro.textAlign = "center";
 ctxIntro.font = " 30px Arial ";
 ctxIntro.fillStyle = 'wheat';

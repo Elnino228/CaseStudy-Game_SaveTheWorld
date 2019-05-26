@@ -26,6 +26,7 @@ let Game = function () {
     this.start = function () {
         if (self.over) {
             musicBackground.stop();
+            window.clearInterval(callBackMusicBackground);
             soundGameOver.play();
             cancelAnimationFrame(callAgainBulletMove);
             outroGame();
@@ -96,6 +97,7 @@ let Game = function () {
     // };
 };
 let Sound=function(src){
+    let self=this;
     this.sound = document.createElement("audio");
     this.sound.src = src;
     this.sound.setAttribute("preload", "auto");
@@ -103,9 +105,9 @@ let Sound=function(src){
     this.sound.style.display = "none";
     document.body.appendChild(this.sound);
     this.play = function(){
-        this.sound.play();
+        self.sound.play();
     }
     this.stop = function(){
-        this.sound.pause();
+        self.sound.pause();
     }
 }
