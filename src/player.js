@@ -9,7 +9,7 @@ const CV_HEIGHT = myCanvas.height;
 const DEFAULT_POSISION_Y = CV_HEIGHT - 100;
 const DEFAULT_POSISION_X = CV_WIDTH / 2;
 const DEFAULT_SPEED = 2;
-const PLAYER_HP=10;
+const PLAYER_HP = 10;
 const CTRL_KEY = 17;
 const SPACE_KEY = 32;
 const LEFT_ARROW_KEY = 37;
@@ -23,7 +23,7 @@ let Player = function () {
     let self = this;
     this.x = DEFAULT_POSISION_X;
     this.y = DEFAULT_POSISION_Y;
-    this.hp=PLAYER_HP;
+    this.hp = PLAYER_HP;
     this.image = new Image();
     this.image.src = './images/combat_Aircrafts.png';
     this.width = this.image.naturalWidth * PLAYER_RATIO;
@@ -40,6 +40,7 @@ let Player = function () {
     };
     //cho phương thức này khai báo ở thẻ body với sự kiện onkeydown
     this.changeOrientation = function (event) {
+        //khi game over thì sự kiện bị vô hiệu hóa, ngoại trừ phím Enter để chơi lại Game
         if (game.ready) {
             switch (event.keyCode) {
                 case LEFT_ARROW_KEY:
@@ -56,7 +57,7 @@ let Player = function () {
                     break;
             }
         }
-        if (event.keyCode==ENTER_KEY){
+        if (event.keyCode == ENTER_KEY) {
             playReset();
             playReady();
         }
@@ -78,19 +79,19 @@ let Player = function () {
         }
     };
     this.shoot = function () {
-        let bullet = new Bullet();
         let name = 'bulletOfPlayer';
         let link = "./images/rocket2.png";
         let size = 30;
         let speed = -8;
         let damage = 1;
+        let bullet = new Bullet();
         bullet.setType(name, link, size, speed, damage);
         this.bullet = bullet;
+        //gán tọa độ của Player cho tọa độ của đạn
         this.bullet.x = this.x + this.width / 2 - this.bullet.width / 2;
         this.bullet.y = this.y;
         soundShoot.play();
         // soundShoot.stop();
         this.bullet.move();
-
     }
 };

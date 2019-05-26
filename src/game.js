@@ -1,4 +1,5 @@
 const NUMBERS_UFO_IMAGES = 10;
+
 //khai báo lớp Game
 let Game = function () {
     let self = this;
@@ -10,12 +11,11 @@ let Game = function () {
     this.createMultipleObstacles = function () {
         for (let i = 0; i < NUMBERS_OBSTACLES; i++) {
             this.obstacle = new Obstacles();
-            let color = getRandomColor();
-            this.obstacle.setType('./images/ufo' + Math.floor(Math.random() * NUMBERS_UFO_IMAGES) + '.png')
-
-            this.obstacle.setSpeed();
+            let link = './images/ufo' + Math.floor(Math.random() * NUMBERS_UFO_IMAGES) + '.png';
+            this.obstacle.setType(link, OBSTACLES_SIZE, EASY_SPEED)
             obstacles.push(this.obstacle);
         }
+
         this.obstacles = obstacles;
     };
     this.drawMultipleObstacles = function () {
@@ -23,22 +23,23 @@ let Game = function () {
             self.obstacles[i].draw();
         }
     }
+    //phương thức sẽ được gọi liên tục cho đến khi game over
     this.start = function () {
         if (self.over) {
             musicBackground.stop();
             window.clearInterval(callBackMusicBackground);
             soundGameOver.play();
-            cancelAnimationFrame(callAgainBulletMove);
+            cancelAnimationFrame(callBackBulletMove);
             outroGame();
+            self.ready = false;
             return; //nếu game over thì thoát
         }
-        callAgainGameStart = requestAnimationFrame(self.start);
+        callBackGameStart = requestAnimationFrame(self.start);
         ctxGame.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
         ctxBullet.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
-        // updateHP(self.player.hp);
         self.player.move();
         self.player.show();
-        // self.bullet.move();
+        //vẽ và move các obstacle
         for (let i = 0; i < self.obstacles.length; i++) {
             self.obstacles[i].move();
             if (self.obstacles[i].y >= CV_HEIGHT) {
@@ -46,30 +47,29 @@ let Game = function () {
                 self.obstacles[i].y = Math.floor(Math.random() * (-CV_HEIGHT));
             }
             self.obstacles[i].draw();
-            // self.obstacles[i].shoot();
         }
+        //ghi lại trạng thái máu và điểm số
         self.record()
+        //kiểm tra game đã over chưa
         self.end();
     };
     this.end = function () {
         for (let i = 0; i < self.obstacles.length; i++) {
-            // let playerTouchObstacle = this.player.x + this.player.width >= this.obstacles[i].x &&
+            //điều ện chuẩn để player chết
+            // let playerCollideObstacle = this.player.x + this.player.width >= this.obstacles[i].x &&
             //     this.player.x <= this.obstacles[i].x + this.obstacles[i].width &&
             //     this.player.y <= this.obstacles[i].y + this.obstacles[i].height;
             //sửa lại cho khó chết hơn
-            let playerTouchObstacle = this.player.x + this.player.width/2 >= this.obstacles[i].x &&
-                this.player.x+this.player.width/2 <= this.obstacles[i].x + this.obstacles[i].width &&
-                this.player.y+this.player.height/2 <= this.obstacles[i].y + this.obstacles[i].height;
-            let wallTouchObstacle = this.obstacles[i].y + this.obstacles[i].height >= CV_HEIGHT;
-            if (playerTouchObstacle || wallTouchObstacle) {
+            let playerCollideObstacle = this.player.x + this.player.width / 2 >= this.obstacles[i].x &&
+                this.player.x + this.player.width / 2 <= this.obstacles[i].x + this.obstacles[i].width &&
+                this.player.y + this.player.height / 2 <= this.obstacles[i].y + this.obstacles[i].height;
+            let obstacleCollideBottomEdge = this.obstacles[i].y + this.obstacles[i].height >= CV_HEIGHT;
+            if (playerCollideObstacle || obstacleCollideBottomEdge) {
                 this.over = true;
-                this.ready = false;
             }
         }
     }
     this.record = function () {
-        // document.getElementById('scores').innerHTML = scores;
-        // ctxIntro.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
         ctxGame.textAlign = "center";
         ctxGame.font = "30px Impact";
         ctxGame.fillStyle = 'white';
@@ -78,36 +78,21 @@ let Game = function () {
         ctxGame.fillStyle = 'red';
         ctxGame.fillText('HP: ' + self.player.hp, 50, 30);
     }
-    this.x = 0;
-    this.y = 0;
-    this.background = function (top, left, size) {
-
-    }
-    // this.animate = function () {
-    //     this.top = top;
-    //     this.left = left;
-    //     this.size = size;
-    //     this.speed = speed;
-    //     //phương thức tạo thẻ insert ảnh trong html
-    //     this.getCarElement = function () {
-    //         return '<image width="' + this.sizeWidth + '" height="' + this.sizeHeight + '"' +
-    //             ' src="' + this.image + '"' +
-    //             ' style="top:' + this.top + 'px' + ';left:' + this.left + 'px' + ';position: absolute"' + ' />';
-    //     }
-    // };
 };
-let Sound=function(src){
-    let self=this;
+
+//khai báo lớp Audio
+let Sound = function (src) {
+    let self = this;
     this.sound = document.createElement("audio");
     this.sound.src = src;
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
     document.body.appendChild(this.sound);
-    this.play = function(){
+    this.play = function () {
         self.sound.play();
     }
-    this.stop = function(){
+    this.stop = function () {
         self.sound.pause();
     }
 }
