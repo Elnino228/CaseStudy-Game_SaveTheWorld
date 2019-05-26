@@ -14,6 +14,7 @@ let musicBackground;
 let soundGameOver = new Sound('./sounds/gameOver3.mp3');
 let soundShoot = new Sound('./sounds/chiu.mp3');
 let soundExplosive = new Sound('./sounds/Explosion+1.mp3');
+let soundPlayerExplosive= new Sound('./sounds/Explosion+3.mp3');
 let obstacles = [];
 let scores = 0;
 let callBackBulletMove;

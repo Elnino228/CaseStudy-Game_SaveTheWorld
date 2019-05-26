@@ -94,4 +94,6 @@ let Player = function () {
         // soundShoot.stop();
         this.bullet.move();
     }
+    //tạo thuộc tính nổ cho Obstacle
+    this.explosive = new Explosion();
 };

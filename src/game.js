@@ -26,9 +26,17 @@ let Game = function () {
     //phương thức sẽ được gọi liên tục cho đến khi game over
     this.start = function () {
         if (self.over) {
+            soundPlayerExplosive.play();
+            let posX = self.player.x + self.player.width / 2 - self.player.explosive.size / 2;
+            let posY = self.player.y + self.player.height / 2 - self.player.explosive.size / 2;
+            self.player.explosive.setPosition(posX,posY);
+            //xoá Player và vẽ lại các Obstacles
+            ctxGame.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
+            self.drawMultipleObstacles();
+            self.player.explosive.start();
             musicBackground.stop();
-            window.clearInterval(callBackMusicBackground);
             soundGameOver.play();
+            window.clearInterval(callBackMusicBackground);
             cancelAnimationFrame(callBackBulletMove);
             outroGame();
             self.ready = false;
