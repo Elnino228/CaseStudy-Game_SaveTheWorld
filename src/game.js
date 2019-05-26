@@ -29,7 +29,7 @@ let Game = function () {
             soundPlayerExplosive.play();
             let posX = self.player.x + self.player.width / 2 - self.player.explosive.size / 2;
             let posY = self.player.y + self.player.height / 2 - self.player.explosive.size / 2;
-            self.player.explosive.setPosition(posX,posY);
+            self.player.explosive.setPosition(posX, posY);
             //xoá Player và vẽ lại các Obstacles
             ctxGame.clearRect(0, 0, CV_WIDTH, CV_HEIGHT);
             self.drawMultipleObstacles();
@@ -40,6 +40,7 @@ let Game = function () {
             cancelAnimationFrame(callBackBulletMove);
             outroGame();
             self.ready = false;
+            // highScore = checkCookie();
             return; //nếu game over thì thoát
         }
         callBackGameStart = requestAnimationFrame(self.start);
@@ -102,5 +103,42 @@ let Sound = function (src) {
     }
     this.stop = function () {
         self.sound.pause();
+    }
+}
+
+function setCookie(cname, cvalue, exdays) {
+    let d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=./images";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(' ');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function checkCookie() {
+    let value = getCookie("scores");
+    if (value != "") {
+        // alert("Welcome again " + user);
+        if (value > scores) return value;
+        else return -1;
+    } else {
+        // value = prompt("Please enter your name:", "");
+        value = scores;
+        // if (value != "" && value != null) {
+        setCookie("scores", value, 365);
+        // }
     }
 }

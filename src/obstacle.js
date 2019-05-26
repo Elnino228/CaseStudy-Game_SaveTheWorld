@@ -1,4 +1,4 @@
-const EASY_SPEED = 0.5;
+const EASY_SPEED = 0.45;
 const MEDIUM_SPEED = 0.6;
 const HARD_SPEED = 1;
 const INCREASE_SPEED = 2;

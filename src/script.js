@@ -17,6 +17,7 @@ let soundExplosive = new Sound('./sounds/Explosion+1.mp3');
 let soundPlayerExplosive= new Sound('./sounds/Explosion+3.mp3');
 let obstacles = [];
 let scores = 0;
+let highScore;
 let callBackBulletMove;
 let callBackGameStart;
 let callBackMusicBackground;
@@ -31,7 +32,12 @@ ctxIntro.fillStyle = 'yellow';
 ctxIntro.fillText("SAVE THE WORLD", CV_WIDTH / 2, CV_HEIGHT / 2);
 ctxIntro.font = " bold 20px Arial ";
 ctxIntro.fillStyle = 'red';
-ctxIntro.fillText("PRESS ENTER TO PLAY", CV_WIDTH / 2, CV_HEIGHT / 1.4);
+ctxIntro.fillText("PRESS ENTER TO PLAY", CV_WIDTH / 2, CV_HEIGHT / 1.5);
+ctxIntro.fillStyle = 'wheat';
+ctxIntro.font = " bold 15px Arial ";
+ctxIntro.fillText("PRESS CTRL TO SHOOT", CV_WIDTH / 2, CV_HEIGHT / 1.3);
+ctxIntro.fillStyle = 'wheat';
+ctxIntro.fillText("PRESS LEFT/RIGHT ARROW TO CHANGE DIRECTION", CV_WIDTH / 2, CV_HEIGHT / 1.2);
 
 function getRandomHex() {
     return Math.floor(Math.random() * 255);
@@ -112,7 +118,20 @@ function outroGame() {
     ctxIntro.font = "bold 80px Impact ";
     ctxIntro.fillStyle = 'yellow';
     ctxIntro.fillText("Game Over", CV_WIDTH / 2, CV_HEIGHT / 2);
+    //ghi lại điểm số
+    if (highScore>scores){
+        ctxIntro.font = "bold 25px Impact ";
+        ctxIntro.fillStyle = 'yellow';
+        ctxIntro.fillText("New high score: "+highScore, CV_WIDTH / 2, CV_HEIGHT / 1.7);
+    } else {
+        ctxIntro.font = "bold 25px Impact ";
+        ctxIntro.fillStyle = 'yellow';
+        ctxIntro.fillText("High score: "+scores, CV_WIDTH / 2, CV_HEIGHT / 1.7);
+    }
+
     ctxIntro.font = "20px Impact";
     ctxIntro.fillStyle = 'red';
     ctxIntro.fillText('Press Enter to continute...', CV_WIDTH / 2, CV_HEIGHT / 1.4);
 }
+
+
