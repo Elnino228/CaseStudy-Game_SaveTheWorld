@@ -106,11 +106,11 @@ let Sound = function (src) {
     }
 }
 
-function setCookie(cname, cvalue) {
-    // let d = new Date();
-    // d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    // let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue;
+function setCookie(cname, cvalue, exdays) {
+    let d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=./images";
 }
 
 function getCookie(cname) {
@@ -138,7 +138,7 @@ function checkCookie() {
         // value = prompt("Please enter your name:", "");
         value = scores;
         // if (value != "" && value != null) {
-        setCookie("scores", value);
+        setCookie("scores", value, 365);
         // }
     }
 }

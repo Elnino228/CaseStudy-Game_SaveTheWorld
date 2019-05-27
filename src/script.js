@@ -51,8 +51,6 @@ function getRandomColor() {
 }
 
 function playReady() {
-    document.cookie = "username=test";
-    l(document.cookie);
     countDown(3);
 }
 
