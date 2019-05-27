@@ -3,7 +3,7 @@
     position: absolute;
     top: 10px;
     left: 300px;
-    background-image: url("background6.jpg");
+    background-image: url("../images/background6.jpg");
     background-size: cover;
 }
 #myCanvas2{
