@@ -8,7 +8,7 @@ const CV_WIDTH = myCanvas.width;
 const CV_HEIGHT = myCanvas.height;
 const DEFAULT_POSISION_Y = CV_HEIGHT - 100;
 const DEFAULT_POSISION_X = CV_WIDTH / 2;
-const DEFAULT_SPEED = 2;
+const DEFAULT_SPEED = 2.5;
 const PLAYER_HP = 10;
 const CTRL_KEY = 17;
 const SPACE_KEY = 32;
@@ -57,10 +57,6 @@ let Player = function () {
                     break;
             }
         }
-        if (event.keyCode == ENTER_KEY) {
-            playReset();
-            playReady();
-        }
     };
     this.move = function () {
         switch (this.orientation) {
@@ -82,7 +78,7 @@ let Player = function () {
         let name = 'bulletOfPlayer';
         let link = "./images/rocket2.png";
         let size = 30;
-        let speed = -8;
+        let speed = -10;
         let damage = 1;
         let bullet = new Bullet();
         bullet.setType(name, link, size, speed, damage);

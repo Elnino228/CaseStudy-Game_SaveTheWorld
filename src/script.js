@@ -21,6 +21,14 @@ let highScore;
 let callBackBulletMove;
 let callBackGameStart;
 let callBackMusicBackground;
+window.addEventListener('keydown',function (event) {
+    if (!game.ready){
+        if (event.keyCode == ENTER_KEY) {
+            playReset();
+            playReady();
+        }
+    }
+});
 
 //tạo màn hình bắt đầu game
 ctxIntro.textAlign = "center";
@@ -82,6 +90,7 @@ function playReset() {
 function newGame() {
     //new Game
     game = new Game();
+    game.ready=true;
     //khởi tạo mảng chướng ngại vật
     //hiện thị player
     game.player.show();

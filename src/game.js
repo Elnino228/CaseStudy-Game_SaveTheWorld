@@ -4,7 +4,7 @@ const NUMBERS_UFO_IMAGES = 10;
 let Game = function () {
     let self = this;
     this.over = false;
-    this.ready = true;
+    this.ready;
     this.player = new Player();
     this.bullet = new Bullet();
     //khởi tạo nhiều chướng ngại vật và lưu vào mảng đc khai báo Global
